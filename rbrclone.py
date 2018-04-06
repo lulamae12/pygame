@@ -53,8 +53,8 @@ class Ship(object):
     def keepinbounds(self):
         if self.x < 3:
             self.x == 3
-    def collisionCheck(self, sprite1, sprite2):
-        col = self.imageRect.colliderect(sprite1, sprite2)
+    def collisionCheck(self, asteroid):
+        col = asteroid.imageRect.collidepoint(pg.mouse.get_pos())
         if col == True:
             print("hit")
 
@@ -110,7 +110,7 @@ while gameRunning: #main loop
         if event.type == pg.QUIT:
             sys.exit()
             gameRunning == False
-        ship.collisionCheck(ship.imageRect, asteroid1.image)
+        ship.collisionCheck(asteroid1)
     ship.getMousePos()
     ship.goToMouse()
     ship.controls() # handle the keys
