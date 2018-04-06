@@ -21,7 +21,6 @@ class Ship(object):
         self.health = 1
         self.image = pg.image.load("ship.gif")
         self.imageRect = self.image.get_rect()
-
         screen.blit(self.image,self.imageRect)
         pg.display.update()
         self.x = 100
