@@ -13,7 +13,7 @@ feet = 0
 pg.init()
 pg.display.set_caption("centipede")
 screen = pg.display.set_mode((450,700))
-pg.mouse.set_visible(False)
+
 pg.display.update()
 clock = pg.time.Clock()
 gameRunning = True
@@ -177,6 +177,9 @@ class gameMenu(object):
         self.menuButtonRect = self.menuButton.get_rect()
         self.menuButtonX = pg.image.load("menuButton002.png").convert()#button x
         self.menuButtonXRect = self.menuButtonX.get_rect()
+    #def button(self):
+
+
 def update():#update group
     asteroid1.update(screen)
     asteroid2.update(screen)
