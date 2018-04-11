@@ -158,7 +158,7 @@ class UI(object):
         self.numForCounter = str(feet)
         self.numForCounter = self.numForCounter[0:5]
 
-        print(feet)
+
         print(self.numForCounter)
     def counterFT(self):
         counterSurface = self.counterFont.render(("Altitude: " + self.numForCounter + " Km."), False, WHITE)#render font
@@ -177,7 +177,13 @@ class gameMenu(object):
         self.menuButtonRect = self.menuButton.get_rect()
         self.menuButtonX = pg.image.load("menuButton002.png").convert()#button x
         self.menuButtonXRect = self.menuButtonX.get_rect()
-    #def button(self):
+    def button(self):
+        if pg.mouse.get_pressed()[0]:
+            pos = pg.mouse.get_pos()
+            if menuButtonRect.collidepoint(pos) == 1:
+                print('click')
+    def update(self, surface):
+        surface.blit(self.menuButton, self.menuButtonRect)
 
 
 def update():#update group
@@ -186,7 +192,7 @@ def update():#update group
     ship.update(screen)
     ui.update(screen)
     pg.display.update()
-
+    gameMenu.update(screen)
 def moveGroup():
     asteroid1.motion(screen)
     asteroid2.motion(screen)
@@ -205,7 +211,7 @@ def main():
             if event.type == pg.QUIT:
                 exit()
                 gameRunning == False
-
+        gameMenu.button()
         clock.tick(200)
         collisionCheck()
         moveGroup()
@@ -246,5 +252,5 @@ ui = UI(object)
 ship = Ship(object)
 asteroid1 = Asteroid(object)
 asteroid2 = AsteroidNT(object)
-
+gameMenu = gameMenu(object)
 main()
