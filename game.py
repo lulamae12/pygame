@@ -8,7 +8,7 @@ import pygame as pg
 ReadyForRepeat = False
 ReadyForRepeatA2 = False
 #setup
-steps = 5
+steps = 1
 
 pg.init()
 pg.display.set_caption("centipede")
@@ -18,10 +18,8 @@ pg.display.update()
 clock = pg.time.Clock()
 gameRunning = True
 
-frame_count = 0
-frame_rate = 60
-start_time = 90
 
+clock.tick(30)
 class Ship(object):
     def __init__(self, pos):
         self.destroyed = False
@@ -80,7 +78,7 @@ class Asteroid(object):
         self.outOfBoundsBOTTOM = False
     def SetSpeed(self):
 
-        self.speed = 2
+        self.speed = 1
 
     def motion(self, screen):
         print("Speed:",self.speed)
@@ -133,7 +131,7 @@ class AsteroidNT(object):
         self.outOfBoundsBOTTOM = False
     def SetSpeed(self):
 
-        self.speed = 2
+        self.speed = 1
 
     def motion(self, screen):
 
@@ -153,19 +151,6 @@ class AsteroidNT(object):
     def update(self, surface):
 
         surface.blit(self.image, self.imageRect)
-class Timer(object):
-    def __init__(self, pos):
-        self.TimerFont = pg.font.Font("retro1.ttf", 20)
-        screen = pg.display.get_surface()
-    def Calculate(Self):
-        self.total_time = frame_count // frame_rate#Calculate total amount of time in seconds
-        self.minutes = self.total_time // 60 #get minutes(as if they would even be used)
-        self.seconds = self.total_time % 60 #use modulus to get remaining seconds
-
-        self.timerOutputString = "Time: {0:02}:{1:02}".format(minutes, seconds) #outputs with zeros
-    def displayTimer(Self):
-        self.timerTime = TimerFont.render(output_string, True, BLACK)
-        screen.blit(text, [250, 250])
 
 def update():#update group
     asteroid1.update(screen)
@@ -173,6 +158,7 @@ def update():#update group
     ship.update(screen)
     ui.update(screen)
     pg.display.update()
+
 def moveGroup():
     asteroid1.motion(screen)
     asteroid2.motion(screen)
@@ -232,4 +218,5 @@ ui = UI(object)
 ship = Ship(object)
 asteroid1 = Asteroid(object)
 asteroid2 = AsteroidNT(object)
+
 main()
