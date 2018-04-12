@@ -1,5 +1,6 @@
 
 import math
+
 from sys import exit
 import random
 from time import sleep
@@ -13,7 +14,8 @@ feet = 0
 pg.init()
 pg.display.set_caption("centipede")
 screen = pg.display.set_mode((450,700))
-
+buttonX = False #menuButton002.png
+buttonLine = True #menuButton001.png
 pg.display.update()
 clock = pg.time.Clock()
 gameRunning = True
@@ -148,6 +150,7 @@ class UI(object):
         self.smallTopCover = pg.image.load("smallTopCover.png").convert()#cover for behind text
         self.smallTopCoverRect = self.smallTopCover.get_rect()
         self.smallTopCoverRect = self.smallTopCoverRect.move(200,0)
+
         screen.blit(self.TopCover,self.TopCoverRect)
         screen.blit(self.SideCover,self.SideCoverRect)
         screen.blit(self.smallTopCover,self.smallTopCoverRect)
@@ -172,27 +175,53 @@ class UI(object):
 
 class gameMenu(object):
     def __init__(self,pos):
+        paused = False
         screen = pg.display.get_surface()
-        self.menuButton = pg.image.load("menuButton001.png").convert()# 2 line button
+        self.buttonX = False #menuButton002.png
+        self.buttonLine = True #menuButton001.png
+        self.menuButton = pg.image.load("menuButton001.png")# 2 line button
+        self.menuButton = pg.transform.scale(self.menuButton, (75, 75))
         self.menuButtonRect = self.menuButton.get_rect()
-        self.menuButtonX = pg.image.load("menuButton002.png").convert()#button x
-        self.menuButtonXRect = self.menuButtonX.get_rect()
-    def button(self):
+        self.menuButtonRect = self.menuButtonRect.move(370,1)
+        screen.blit(self.menuButton, self.menuButtonRect)
+        pg.display.update()
+    def button(self, surface):
+
         if pg.mouse.get_pressed()[0]:
             pos = pg.mouse.get_pos()
-            if menuButtonRect.collidepoint(pos) == 1:
+            if self.menuButtonRect.collidepoint(pos) == 1 and self.buttonLine == True:
                 print('click')
+                self.menuButton = pg.image.load("menuButton002.png")#button x
+                self.menuButtonRect = self.menuButton.get_rect()
+                self.menuButtonRect = self.menuButtonRect.move(370,1)
+                self.menuButton = pg.transform.scale(self.menuButton, (75, 75))
+                screen.blit(self.menuButton, self.menuButtonRect)
+                self.buttonLine = False
+                paused = True
+                while paused:
+                    print("game is paused")
+                    self.buttonX = True
+                    if self.menuButtonRect.collidepoint(pos) == 1 and self.buttonX == True:
+                        paused = False
+            elif self.menuButtonRect.collidepoint(pos) == 1 and self.buttonX == True:
+                self.menuButton = pg.image.load("menuButton001.png")#button x
+                self.menuButtonRect = self.menuButton.get_rect()
+                self.menuButtonRect = self.menuButtonRect.move(370,1)
+                self.menuButton = pg.transform.scale(self.menuButton, (75, 75))
+                screen.blit(self.menuButton, self.menuButtonRect)
+                self.buttonX = False
+                self.buttonLine = True
     def update(self, surface):
         surface.blit(self.menuButton, self.menuButtonRect)
-
 
 def update():#update group
     asteroid1.update(screen)
     asteroid2.update(screen)
     ship.update(screen)
     ui.update(screen)
-    pg.display.update()
     gameMenu.update(screen)
+    #add above
+    pg.display.update()
 def moveGroup():
     asteroid1.motion(screen)
     asteroid2.motion(screen)
@@ -207,12 +236,11 @@ def main():
     asteroid2.SetSpeed()
 
     while gameRunning: #main loop
+        clock.tick(200)
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 exit()
                 gameRunning == False
-        gameMenu.button()
-        clock.tick(200)
         collisionCheck()
         moveGroup()
         update()
@@ -221,6 +249,7 @@ def main():
         screen.fill(BLACK)
         ui.HeightScore()
         ui.counterFT()
+        gameMenu.button(screen)
         """keeps ship on screen"""
         if asteroid1.area.contains(asteroid1.imageRect):
             ReadyForRepeat = False
@@ -248,9 +277,11 @@ def main():
 
             ReadyForRepeatA2 = False
 
-ui = UI(object)
+
+
 ship = Ship(object)
 asteroid1 = Asteroid(object)
 asteroid2 = AsteroidNT(object)
 gameMenu = gameMenu(object)
+ui = UI(object)
 main()
