@@ -29,8 +29,8 @@ def CreateNew():
     lengthOk = False
     noOddChar = False
     NameConfDone = False
-    Usernames = open("usernames.txt","a+")
-    UsernamesRead = open("usernames.txt","r")
+    Usernames = open("usernames","a+")
+    UsernamesRead = open("usernames","r")
     if UsernamesRead.mode == "r":
         UsernamesContent = UsernamesRead.read()
 
@@ -62,11 +62,13 @@ def CreateNew():
                 print(newname,"is your name. do you want to confirm this? you cannot change it later.")
                 NameConf = input("Answer(y, n):")
                 if NameConf == "y":
-                    filename = newname #new file name
                     print("Confirmed!")
+
+                    Usernames.write(f"\nUsername:{str(newname)}")
                     NameConfDone = True
-                    usernames.write(f"\nUSERNAMEs)
-                    CreateNewScoreboard()
+                    Usernames.close()
+                    CreateNewScoreboard()#makes new scoreboard name
+                    break
                 elif NameConf == "n":
                     print("ok, returning to menu")
                     lenghtOk = False
@@ -76,8 +78,11 @@ def CreateNew():
                     print("ERROR: That is not a valid answer!")
 def CreateNewScoreboard():
     scoreboardlen = False
-    scoreboardSB = False
-    cls
+    scoreboardSB = False#allows no odd characters
+    SBConfDone = False
+    scoreboardNames = open("scoreboardNames","a+")
+    scoreboardNamesRead = open("scoreboardNames","r")
+    cls()
     while scoreboardlen == False and scoreboardSB == False:
         print("\nplease enter something that will represent you on the leaderboard.\n(please keep it short(under 6 characters) and dont add spaces! Example: 'TLS')")
         newScoreboardName = input("Scoreboard name:")
@@ -91,3 +96,24 @@ def CreateNewScoreboard():
         else:
             scoreboardSB = True
             scoreboardlen = True
+        if scoreboardSB == True and scoreboardlen == True:
+            while SBConfDone != True:
+                print(newScoreboardName,"will be your name on the scoreboard. Do you want to confirm this? You cannot change it later.")
+                SBNameConf = input("Answer(y, n):")
+                if SBNameConf == "y":
+
+                    print("Confirmed!")
+
+                    scoreboardNames.write(f"\nScoreBoardName:{str(newScoreboardName)}")
+                    SBConfDone = True
+                    scoreboardNames.close()
+                    CreateNewScoreboard()#makes new scoreboard name
+
+                    break
+                elif SBNameConf == "n":
+                    print("ok, returning to menu")
+                    lenghtOk = False
+                    noOddChar = False
+                    break
+                elif SBNameConf != "n"  and SBNameConf != "y":
+                    print("ERROR: That is not a valid answer!")
