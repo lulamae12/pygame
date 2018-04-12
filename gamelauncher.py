@@ -82,13 +82,18 @@ def CreateNewScoreboard():
     SBConfDone = False
     scoreboardNames = open("scoreboardNames","a+")
     scoreboardNamesRead = open("scoreboardNames","r")
+    if scoreboardNamesRead.mode == "r":
+        scoreboardNamesContent = scoreboardNamesRead.read()
+
     cls()
     while scoreboardlen == False and scoreboardSB == False:
-        print("\nplease enter something that will represent you on the leaderboard.\n(please keep it short(under 6 characters) and dont add spaces! Example: 'TLS')")
+        print("\nplease enter something that will represent you on the leaderboard.\n(please keep it short(under 3 characters) and dont add spaces! Example: 'TLS')")
         newScoreboardName = input("Scoreboard name:")
         print("\n")
         if len(newScoreboardName) > 4:
             print("\nERROR: that is too long! please keep it under 4 characters in length.")
+        elif newScoreboardName in scoreboardNamesContent:
+             print("ERROR: that already exsists!")
         elif len(newScoreboardName) == 3:
             scoreboardlen = True
         elif len(newScoreboardName) < 3:
@@ -107,13 +112,12 @@ def CreateNewScoreboard():
                     scoreboardNames.write(f"\nScoreBoardName:{str(newScoreboardName)}")
                     SBConfDone = True
                     scoreboardNames.close()
-                    CreateNewScoreboard()#makes new scoreboard name
-
+                    #CreateNewScoreboard()#makes new scoreboard name
                     break
                 elif SBNameConf == "n":
                     print("ok, returning to menu")
-                    lenghtOk = False
-                    noOddChar = False
+                    scoreboardlen = False
+                    scoreboardSB = False
                     break
                 elif SBNameConf != "n"  and SBNameConf != "y":
                     print("ERROR: That is not a valid answer!")
