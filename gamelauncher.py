@@ -67,6 +67,7 @@ def CreateNew():
                     Usernames.write(f"\nUsername:{str(newname)}")
                     NameConfDone = True
                     Usernames.close()
+
                     CreateNewScoreboard()#makes new scoreboard name
                     break
                 elif NameConf == "n":
@@ -96,11 +97,10 @@ def CreateNewScoreboard():
              print("ERROR: that already exsists!")
         elif len(newScoreboardName) == 3:
             scoreboardlen = True
+            scoreboardSB = True
         elif len(newScoreboardName) < 3:
             print("\nERROR: it has to have 3 characters in it.")
-        else:
-            scoreboardSB = True
-            scoreboardlen = True
+
         if scoreboardSB == True and scoreboardlen == True:
             while SBConfDone != True:
                 print(newScoreboardName,"will be your name on the scoreboard. Do you want to confirm this? You cannot change it later.")
@@ -108,11 +108,10 @@ def CreateNewScoreboard():
                 if SBNameConf == "y":
 
                     print("Confirmed!")
-
                     scoreboardNames.write(f"\nScoreBoardName:{str(newScoreboardName)}")
                     SBConfDone = True
                     scoreboardNames.close()
-                    #CreateNewScoreboard()#makes new scoreboard name
+                    print('test')
                     break
                 elif SBNameConf == "n":
                     print("ok, returning to menu")
