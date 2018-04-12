@@ -1,5 +1,6 @@
 import os
 cls = lambda: os.system('cls')
+#make functiion return
 def signinMenu():
     while True:
         print("Please select a choice:")
@@ -28,51 +29,65 @@ def CreateNew():
     lengthOk = False
     noOddChar = False
     NameConfDone = False
+    Usernames = open("usernames.txt","a+")
+    UsernamesRead = open("usernames.txt","r")
+    if UsernamesRead.mode == "r":
+        UsernamesContent = UsernamesRead.read()
+
     cls()
     while True:
         print("╔═════════════════════════╗")
         print("║ Create a new user       ║")
         print("╚═════════════════════════╝")
         while lengthOk == False and noOddChar == False:
-            print("\nplease enter your first name and last initial.(This will be used to import your playerdata file so \nplease keep it short and dont add spaces! Example: 'DaveR')")
-            newname = input("name:")
+            print("\nplease enter your username.(This will be used to import your playerdata file so \nplease make sure its easy to remeber and dont add special characters! Example: 'DebtKillerDaveRamsey12')")
+            newname = input("Username:")
             print("\n")
-            if len(newname) > 10:
+            if len(newname) > 15:
                 print("ERROR: that name is too long! please keep it under 1O characters in length.")
-            elif len(newname) < 11 and len(newname) > 2:
-                lenghtOk = True
+            elif newname in UsernamesContent:
+                print("ERROR: that username already exsists!")
             elif len(newname) < 3:
-                print("ERROR: The name has to at least have 3 characters in it.")
-            if newname.isalpha():
+                print("ERROR: The Username has to at least have 3 characters in it.")
+            elif "." in newname or "\\"  in newname:
+                print("ERROR: The Username cannot have special characters")
+                noOddChar = True
+            elif len(newname) < 16 and len(newname) > 2:
+                lenghtOk = True
                 noOddChar = True
             else:
-                print("ERROR: The string may not have spaces or numbers in it.")
+                print("ERROR: The Username may not have spaces or numbers in it.")
         if lenghtOk == True and noOddChar == True:
             while NameConfDone != True:
                 print(newname,"is your name. do you want to confirm this? you cannot change it later.")
                 NameConf = input("Answer(y, n):")
-                if "y" in NameConf:
+                if NameConf == "y":
                     filename = newname #new file name
                     print("Confirmed!")
                     NameConfDone = True
-                elif "n" in NameConf:
+                    usernames.write(f"\nUSERNAMEs)
+                    CreateNewScoreboard()
+                elif NameConf == "n":
                     print("ok, returning to menu")
                     lenghtOk = False
                     noOddChar = False
                     break
                 elif NameConf != "n"  and NameConf != "y":
                     print("ERROR: That is not a valid answer!")
-        while scoreboardlen == False and scoreboardIsAlpha == False:
-            print("\nplease enter something that will represent you on the leaderboard.(please keep it short(under 6 characters) and dont add spaces! Example: 'TLS')")
-            newScoreboardName = input("Scoreboard name:")
-            print("\n")
-            if len(newScoreboardName) > 5:
-                print("ERROR: that is too long! please keep it under 6 characters in length.")
-            elif len(newScoreboardName) < 6 and len(newScoreboardName) > 3:
-                scoreboardlen = True
-            elif len(newname) < 3:
-                print("ERROR: it has to at least have 3 characters in it.")
-            if newname.isalpha():
-                noOddChar = True
-            else:
-                print("ERROR: The string may not have spaces or numbers in it.")
+def CreateNewScoreboard():
+    scoreboardlen = False
+    scoreboardSB = False
+    cls
+    while scoreboardlen == False and scoreboardSB == False:
+        print("\nplease enter something that will represent you on the leaderboard.\n(please keep it short(under 6 characters) and dont add spaces! Example: 'TLS')")
+        newScoreboardName = input("Scoreboard name:")
+        print("\n")
+        if len(newScoreboardName) > 4:
+            print("\nERROR: that is too long! please keep it under 4 characters in length.")
+        elif len(newScoreboardName) == 3:
+            scoreboardlen = True
+        elif len(newScoreboardName) < 3:
+            print("\nERROR: it has to have 3 characters in it.")
+        else:
+            scoreboardSB = True
+            scoreboardlen = True
