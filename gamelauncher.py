@@ -62,3 +62,17 @@ def CreateNew():
                     break
                 elif NameConf != "n"  and NameConf != "y":
                     print("ERROR: That is not a valid answer!")
+        while scoreboardlen == False and scoreboardIsAlpha == False:
+            print("\nplease enter something that will represent you on the leaderboard.(please keep it short(under 6 characters) and dont add spaces! Example: 'TLS')")
+            newScoreboardName = input("Scoreboard name:")
+            print("\n")
+            if len(newScoreboardName) > 5:
+                print("ERROR: that is too long! please keep it under 6 characters in length.")
+            elif len(newScoreboardName) < 6 and len(newScoreboardName) > 3:
+                scoreboardlen = True
+            elif len(newname) < 3:
+                print("ERROR: it has to at least have 3 characters in it.")
+            if newname.isalpha():
+                noOddChar = True
+            else:
+                print("ERROR: The string may not have spaces or numbers in it.")
