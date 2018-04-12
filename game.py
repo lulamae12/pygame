@@ -1,9 +1,10 @@
 
 import math
-
+import pickle
 from sys import exit
 import random
 from time import sleep
+from gamelauncher import *
 from colors import *
 import pygame as pg
 ReadyForRepeat = False
@@ -11,17 +12,35 @@ ReadyForRepeatA2 = False
 #setup
 steps = 1
 feet = 0
+signinMenu()
 pg.init()
 pg.display.set_caption("centipede")
 screen = pg.display.set_mode((450,700))
-buttonX = False #menuButton002.png
-buttonLine = True #menuButton001.png
 pg.display.update()
 clock = pg.time.Clock()
-gameRunning = True
-
-
 clock.tick(30)
+class Player():
+    def __init__(self, name):
+        self.name = name
+        self.scoreboardName = 'TLS'
+        self.coins = 0
+        self.highscore = 0
+    def getHighscore(self, newHighscore):
+        self.highscore = newHighscore
+    def getScoreboardName(self, newScoreboardName):
+        self.scoreboardName = newScoreboardName
+    def loadPlayerData(self, filename):
+        try:
+            data = pickle.load(open(filename,"rb"))
+            self.coins(data["coins"])
+            self.getHighscore(data["highscore"])
+            self.getScoreboardName(data["ScoreboardName"])
+        except:
+            pass
+    def saveData(self,filename):
+        pickle.dump({"coins":self.coins, "highscore":self.highscore, "ScoreboardName":self.scoreboardName}, open(filename,"wb"))
+
+
 class Ship(object):
     def __init__(self, pos):
         self.destroyed = False
@@ -36,7 +55,6 @@ class Ship(object):
         self.y = 565
     def getShipX(self):
         self.shipX = self.x
-
     def controls(self):
         dist = 3
         key = pg.key.get_pressed()
@@ -179,38 +197,23 @@ class gameMenu(object):
         screen = pg.display.get_surface()
         self.buttonX = False #menuButton002.png
         self.buttonLine = True #menuButton001.png
-        self.menuButton = pg.image.load("menuButton001.png")# 2 line button
+        self.menuButton = pg.image.load("menuButton002.png")# 2 line button
         self.menuButton = pg.transform.scale(self.menuButton, (75, 75))
         self.menuButtonRect = self.menuButton.get_rect()
         self.menuButtonRect = self.menuButtonRect.move(370,1)
         screen.blit(self.menuButton, self.menuButtonRect)
         pg.display.update()
     def button(self, surface):
-
         if pg.mouse.get_pressed()[0]:
             pos = pg.mouse.get_pos()
-            if self.menuButtonRect.collidepoint(pos) == 1 and self.buttonLine == True:
+            if self.menuButtonRect.collidepoint(pos) == 1:
                 print('click')
                 self.menuButton = pg.image.load("menuButton002.png")#button x
                 self.menuButtonRect = self.menuButton.get_rect()
                 self.menuButtonRect = self.menuButtonRect.move(370,1)
                 self.menuButton = pg.transform.scale(self.menuButton, (75, 75))
                 screen.blit(self.menuButton, self.menuButtonRect)
-                self.buttonLine = False
-                paused = True
-                while paused:
-                    print("game is paused")
-                    self.buttonX = True
-                    if self.menuButtonRect.collidepoint(pos) == 1 and self.buttonX == True:
-                        paused = False
-            elif self.menuButtonRect.collidepoint(pos) == 1 and self.buttonX == True:
-                self.menuButton = pg.image.load("menuButton001.png")#button x
-                self.menuButtonRect = self.menuButton.get_rect()
-                self.menuButtonRect = self.menuButtonRect.move(370,1)
-                self.menuButton = pg.transform.scale(self.menuButton, (75, 75))
-                screen.blit(self.menuButton, self.menuButtonRect)
-                self.buttonX = False
-                self.buttonLine = True
+                exit()
     def update(self, surface):
         surface.blit(self.menuButton, self.menuButtonRect)
 
@@ -232,6 +235,8 @@ def collisionCheck():
 
 def main():
     global feet
+    gameRunning = True
+
     asteroid1.SetSpeed()
     asteroid2.SetSpeed()
 
@@ -284,4 +289,5 @@ asteroid1 = Asteroid(object)
 asteroid2 = AsteroidNT(object)
 gameMenu = gameMenu(object)
 ui = UI(object)
+
 main()
