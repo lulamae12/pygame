@@ -18,7 +18,7 @@ pg.display.set_caption("centipede")
 screen = pg.display.set_mode((450,700))
 pg.display.update()
 clock = pg.time.Clock()
-clock.tick(30)
+clock.tick(60)
 
 class Ship(object):
     def __init__(self, pos):

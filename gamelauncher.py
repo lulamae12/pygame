@@ -18,6 +18,7 @@ def signinMenu():
             global scoreboardIdentifier
             scoreboardIdentifier = Initials
             cls()
+            verifyFileSym()
             break
 
     while True:
@@ -51,3 +52,8 @@ def signinMenu():
 def getScore(score):
     print(score)
     print(scoreboardIdentifier)
+def verifyFileSym():
+    localContent = ""
+    scoreboard_local = open("scoreboardLocals","r")
+    localContent = scoreboard_local.readlines()
+    print(localContent)
