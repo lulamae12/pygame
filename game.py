@@ -19,27 +19,6 @@ screen = pg.display.set_mode((450,700))
 pg.display.update()
 clock = pg.time.Clock()
 clock.tick(30)
-class Player():
-    def __init__(self, name):
-        self.name = name
-        self.scoreboardName = 'TLS'
-        self.coins = 0
-        self.highscore = 0
-    def getHighscore(self, newHighscore):
-        self.highscore = newHighscore
-    def getScoreboardName(self, newScoreboardName):
-        self.scoreboardName = newScoreboardName
-    def loadPlayerData(self, filename):
-        try:
-            data = pickle.load(open(filename,"rb"))
-            self.coins(data["coins"])
-            self.getHighscore(data["highscore"])
-            self.getScoreboardName(data["ScoreboardName"])
-        except:
-            pass
-    def saveData(self,filename):
-        pickle.dump({"coins":self.coins, "highscore":self.highscore, "ScoreboardName":self.scoreboardName}, open(filename,"wb"))
-
 
 class Ship(object):
     def __init__(self, pos):

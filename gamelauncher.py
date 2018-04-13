@@ -6,6 +6,21 @@ cls = lambda: os.system('cls')
 def signinMenu():
     cls()
     while True:
+        print("╔═══════╗")
+        print("║ Setup ║")
+        print("╠═══════╩══════════════════════════════════════╗")
+        print("║please enter your initials for the scoreboard.║")
+        print("╚══════════════════════════════════════════════╝")
+        Initials = input("Initials:")
+        if len(Initials) > 3 or len(Initials) < 1:
+            print("ERROR: your intials may only be 3 characters in length!")
+        else:
+            global scoreboardIdentifier
+            scoreboardIdentifier = Initials
+            cls()
+            break
+
+    while True:
         print("╔═══════════════════════════╗")
         print("║ Instructions              ║")
         print("╠═══════════════╦═════════╦═╩══════════════╗")
@@ -23,7 +38,6 @@ def signinMenu():
         if ReadyToPlay == "y" or ReadyToPlay == "yes":
             print(ReadyToPlay)
             print("Starting game!")
-
             break
         elif ReadyToPlay == "n" or ReadyToPlay == "no":
             print("quitting!")
@@ -36,3 +50,4 @@ def signinMenu():
 
 def getScore(score):
     print(score)
+    print(scoreboardIdentifier)
