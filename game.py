@@ -79,6 +79,12 @@ class Ship(object):
         col = asteroid.imageRect.collidepoint(self.x, self.y)
         if col == True:
             print("hit")
+            finalHeight = ui.HeightScore()
+            finalHeightfixed = float(finalHeight) -.3
+            finalHeightfixed = str(finalHeightfixed)
+            finalHeightfixed = finalHeightfixed[0:5]
+            print("FH",finalHeightfixed)
+            getScore(finalHeightfixed)
             exit()
 class Asteroid(object):
     def __init__(self, pos):
@@ -179,7 +185,7 @@ class UI(object):
         self.numForCounter = str(feet)
         self.numForCounter = self.numForCounter[0:5]
 
-
+        return self.numForCounter
         print(self.numForCounter)
     def counterFT(self):
         counterSurface = self.counterFont.render(("Altitude: " + self.numForCounter + " Km."), False, WHITE)#render font
