@@ -54,6 +54,44 @@ def getScore(score):
     print(scoreboardIdentifier)
 def verifyFileSym():
     localContent = ""
-    scoreboard_local = open("scoreboardLocals","r")
-    localContent = scoreboard_local.readlines()
+    hardcodedContent = ""
+    try:
+        scoreboard_local = open("scoreboardLocals.txt","r")#open local cached scoreboard
+        localContent = scoreboard_local.readlines()#read lines
+        scoreboard_hardcode = open("C:/Users/Public/Documents/SH.txt","r")#open "backup file"
+        hardcodedContent = scoreboard_hardcode.readlines()#readlines
+        if localContent != hardcodedContent:
+                scoreboard_hardcode = open("C:/Users/Public/Documents/SH.txt","w")
+                SHLinesOfText = ["PLACE","\n","1ST","\n","Name1Name","\n","TLS","\n","Name1Score","\n","000","\n","\n","\n",
+                "PLACE","\n","2ND","\n","Name2Name","\n","TLS","\n","Name2Score","\n","000","\n","\n","\n","PLACE","\n","3RD","\n","Name3Name","\n","TLS","\n","Name3Score","\n","000",
+                "\n","\n","\n","PLACE","\n","4TH","\n","Name4Name","\n","TLS","\n","Name4Score","\n","000","\n","\n","\n","PLACE","\n","5TH","\n","Name5Name","\n","TLS",
+                "\n","Name5Score","\n","000","\n","\n","\n",]
+                scoreboard_hardcode.writelines(SHLinesOfText)
+                scoreboard_hardcode.close()
+                localContent = open("scoreboardLocals.txt","w")
+                localContentTEXT = ["PLACE","\n","1ST","\n","Name1Name","\n","TLS","\n","Name1Score","\n","000","\n","\n","\n",
+                "PLACE","\n","2ND","\n","Name2Name","\n","TLS","\n","Name2Score","\n","000","\n","\n","\n","PLACE","\n","3RD","\n","Name3Name","\n","TLS","\n","Name3Score","\n","000",
+                "\n","\n","\n","PLACE","\n","4TH","\n","Name4Name","\n","TLS","\n","Name4Score","\n","000","\n","\n","\n","PLACE","\n","5TH","\n","Name5Name","\n","TLS",
+                "\n","Name5Score","\n","000","\n","\n","\n",]
+                localContent.writelines(localContentTEXT)
+                localContent.close()
+    except:#if file dosent exist make new default one
+        print("file not found")
+        scoreboard_hardcode = open("C:/Users/Public/Documents/SH.txt","w")
+        SHLinesOfText = ["PLACE","\n","1ST","\n","Name1Name","\n","TLS","\n","Name1Score","\n","000","\n","\n","\n",
+        "PLACE","\n","2ND","\n","Name2Name","\n","TLS","\n","Name2Score","\n","000","\n","\n","\n","PLACE","\n","3RD","\n","Name3Name","\n","TLS","\n","Name3Score","\n","000",
+        "\n","\n","\n","PLACE","\n","4TH","\n","Name4Name","\n","TLS","\n","Name4Score","\n","000","\n","\n","\n","PLACE","\n","5TH","\n","Name5Name","\n","TLS",
+        "\n","Name5Score","\n","000","\n","\n","\n",]
+        scoreboard_hardcode.writelines(SHLinesOfText)
+        scoreboard_hardcode.close()
+        localContent = open("scoreboardLocals.txt","w")
+        localContentTEXT = ["PLACE","\n","1ST","\n","Name1Name","\n","TLS","\n","Name1Score","\n","000","\n","\n","\n",
+        "PLACE","\n","2ND","\n","Name2Name","\n","TLS","\n","Name2Score","\n","000","\n","\n","\n","PLACE","\n","3RD","\n","Name3Name","\n","TLS","\n","Name3Score","\n","000",
+        "\n","\n","\n","PLACE","\n","4TH","\n","Name4Name","\n","TLS","\n","Name4Score","\n","000","\n","\n","\n","PLACE","\n","5TH","\n","Name5Name","\n","TLS",
+        "\n","Name5Score","\n","000","\n","\n","\n",]
+        localContent.writelines(localContentTEXT)
+        localContent.close()
+
+
+    print(hardcodedContent)
     print(localContent)
