@@ -51,6 +51,7 @@ def signinMenu():
 
 def getScore(score):
     score = score
+    updateScoreboard(score)
 def verifyFileSym():
     localContent = ""
     hardcodedContent = ""
@@ -94,7 +95,7 @@ def verifyFileSym():
 
     print(hardcodedContent)
     print(localContent)
-def updateScoreboard():
+def updateScoreboard(score):
     scoreboardLines = open("scoreboardLocals.txt", "r+")
     lines = scoreboardLines.readlines()
     firstPlaceIntitial = lines[4]
@@ -111,3 +112,4 @@ def updateScoreboard():
 
     fifthPlaceIntitial = lines[36]
     fifthPlaceScore = float(lines[38])
+    print('sad',score)
