@@ -1,7 +1,7 @@
 from sys import exit
 import os
 cls = lambda: os.system('cls')
-
+score = 0
 #make functiion return
 def signinMenu():
     cls()
@@ -50,8 +50,7 @@ def signinMenu():
             print("ERROR: That is not a valid answer!")
 
 def getScore(score):
-    print(score)
-    print(scoreboardIdentifier)
+    score = score
 def verifyFileSym():
     localContent = ""
     hardcodedContent = ""
@@ -95,3 +94,20 @@ def verifyFileSym():
 
     print(hardcodedContent)
     print(localContent)
+def updateScoreboard():
+    scoreboardLines = open("scoreboardLocals.txt", "r+")
+    lines = scoreboardLines.readlines()
+    firstPlaceIntitial = lines[4]
+    firstPlaceScore = float(lines[6])
+
+    secondPlaceIntitial = lines[12]
+    secondPlaceScore = float(lines[14])
+
+    thirdPlaceIntitial = lines[20]
+    thirdPlaceScore = float(lines[22])
+
+    fourthPlaceIntitial = lines[28]
+    fourthPlaceScore = float(lines[30])
+
+    fifthPlaceIntitial = lines[36]
+    fifthPlaceScore = float(lines[38])
