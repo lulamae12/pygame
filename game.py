@@ -178,7 +178,7 @@ class UI(object):
 
 class gameMenu(object):
     def __init__(self,pos):
-        paused = False
+
         screen = pg.display.get_surface()
         self.buttonX = False #menuButton002.png
         self.buttonLine = True #menuButton001.png
@@ -192,7 +192,6 @@ class gameMenu(object):
         if pg.mouse.get_pressed()[0]:
             pos = pg.mouse.get_pos()
             if self.menuButtonRect.collidepoint(pos) == 1:
-                print('click')
                 self.menuButton = pg.image.load("menuButton002.png")#button x
                 self.menuButtonRect = self.menuButton.get_rect()
                 self.menuButtonRect = self.menuButtonRect.move(370,1)
@@ -201,7 +200,10 @@ class gameMenu(object):
                 exit()
     def update(self, surface):
         surface.blit(self.menuButton, self.menuButtonRect)
-
+class gameOver(object):
+    def __init__(self, pos):
+        screen = pg.display.get_surface()
+        
 def update():#update group
     asteroid1.update(screen)
     asteroid2.update(screen)
