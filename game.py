@@ -14,6 +14,7 @@ steps = 1
 feet = 0
 signinMenu()
 pg.init()
+
 pg.display.set_caption("centipede")
 screen = pg.display.set_mode((450,700))
 pg.display.update()
@@ -200,11 +201,21 @@ class gameMenu(object):
                 exit()
     def update(self, surface):
         surface.blit(self.menuButton, self.menuButtonRect)
-
-
+class Background():
+    def __init__(self):
+        self.backgroundImage = pg.image.load("background.png")
+        self.backgroundImageRect = self.backgroundImage.get_rect()
+        self.backgroundX = 0
+        self.backgroundY = -6000
+        self.speed = .5
+    def move(self):
+        self.backgroundY += self.speed
+    def update(self, surface):
+        surface.blit(self.backgroundImage, (self.backgroundX, self.backgroundY))
 
 
 def update():#update group
+    background.update(screen)
     asteroid1.update(screen)
     asteroid2.update(screen)
     ship.update(screen)
@@ -213,6 +224,7 @@ def update():#update group
     #add above
     pg.display.update()
 def moveGroup():
+    background.move()
     asteroid1.motion(screen)
     asteroid2.motion(screen)
 def collisionCheck():
@@ -271,7 +283,7 @@ def main():
             ReadyForRepeatA2 = False
 
 
-
+background = Background()
 ship = Ship(object)
 asteroid1 = Asteroid(object)
 asteroid2 = AsteroidNT(object)
