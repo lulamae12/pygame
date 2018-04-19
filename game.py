@@ -177,7 +177,7 @@ class UI(object):
         surface.blit(self.SideCover,self.SideCoverRect)
 
 class gameMenu(object):
-    def __init__(self,pos):
+    def __init__(self, pos):
 
         screen = pg.display.get_surface()
         self.buttonX = False #menuButton002.png
@@ -200,15 +200,10 @@ class gameMenu(object):
                 exit()
     def update(self, surface):
         surface.blit(self.menuButton, self.menuButtonRect)
-class gameOver(object):
-    def __init__(self, pos):
-        screen = pg.display.get_surface()
-        self.gameOverFont =  pg.font.Font('Alien-Encounters-Bold-Italic.ttf', 50)
-        pg.display.update()
-    def gameOver(self):
-        gameover = self.gameOverFont.render(("GAME OVER"), False, RED)#render font
-        screen.blit(gameover,(100,350))
-        pg.display.update
+
+
+
+
 def update():#update group
     asteroid1.update(screen)
     asteroid2.update(screen)
@@ -247,7 +242,7 @@ def main():
         ui.HeightScore()
         ui.counterFT()
         gameMenu.button(screen)
-        gameover.gameOver()
+
         """keeps ship on screen"""
         if asteroid1.area.contains(asteroid1.imageRect):
             ReadyForRepeat = False
@@ -282,5 +277,6 @@ asteroid1 = Asteroid(object)
 asteroid2 = AsteroidNT(object)
 gameMenu = gameMenu(object)
 ui = UI(object)
-gameover = gameOver(object)
+
+
 main()

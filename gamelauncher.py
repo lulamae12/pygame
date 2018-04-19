@@ -134,10 +134,10 @@ def updateScoreboard(score):
         scoreboard_local.close()
         scoreboard_hardcode.close()
         cls()
-        print("╔════════════════╗")
+        print(GREEN + "╔════════════════╗")
         print("║ New Highscore! ║")
         print("╠════════════════╩════════════════════╗")
-        print("║ Current Highscore: ",str(scoreboardIdentifier),str(score),"Feet  ║")
+        print("║ Current Highscore: " + ENDC + YELLOW + str(scoreboardIdentifier),str(score),"Feet" + ENDC + GREEN + "   ║")
         print("╚═════════════════════════════════════╝")
     else:
         scoreboard_local = open("scoreboardLocals.txt","r")
@@ -151,6 +151,7 @@ def updateScoreboard(score):
         print("║ Current Highscore: " + ENDC + YELLOW + str(HighscoreName.strip()),str(HighscoreScore.strip()),"Feet" + ENDC + GREEN + "   ║") #strip gets rid of newline
         print("║                                     ║")
         print("║ Your score: " + ENDC + PURPLE + scoreboardIdentifier,str(score),"Feet" + ENDC + GREEN + "          ║")
-        print("╚═════════════════════════════════════╝")
+        print("╚═════════════════════════════════════╝" + ENDC)
+
     currentScoreL.close()
     currentScoreH.close()
