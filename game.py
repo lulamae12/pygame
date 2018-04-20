@@ -15,7 +15,7 @@ feet = 0
 signinMenu()
 pg.init()
 
-pg.display.set_caption("centipede")
+pg.display.set_caption("SPACE JAM: Beta")
 screen = pg.display.set_mode((450,700))
 pg.display.update()
 clock = pg.time.Clock()
@@ -42,6 +42,7 @@ class Ship(object):
             self.x += dist # move right
         elif key[pg.K_a] or key[pg.K_LEFT]: # a key
             self.x -= dist # move left
+
         if key[pg.K_ESCAPE]:
             exit()
         #right side of screen
@@ -83,9 +84,7 @@ class Asteroid(object):
         self.outOfBoundsTOP = False
         self.outOfBoundsBOTTOM = False
     def SetSpeed(self):
-
         self.speed = 1
-
     def motion(self, screen):
 
         if self.area.contains(self.imageRect):
@@ -96,12 +95,11 @@ class Asteroid(object):
         self.speed = self.speed + .25
         if self.speed > 9:
             self.speed = 8
+        return self.speed
     def update(self, surface):
         surface.blit(self.image, self.imageRect)
 class AsteroidNT(object):
     def __init__(self, pos):
-
-
         screen = pg.display.get_surface()
         self.area = screen.get_rect()
         self.x = random.randrange(1,316)
@@ -109,7 +107,6 @@ class AsteroidNT(object):
         self.image = pg.image.load("asteroid.png")
         self.image = pg.transform.scale(self.image, (66, 71))
         self.imageRect = self.image.get_rect()
-
         self.imageRect = self.imageRect.move(self.x,0)
         screen.blit(self.image,self.imageRect)
         pg.display.update()
@@ -118,34 +115,22 @@ class AsteroidNT(object):
         self.outOfBoundsTOP = False
         self.outOfBoundsBOTTOM = False
     def SetSpeed(self):
-
         self.speed = 1
-
     def motion(self, screen):
-
-
         if self.area.contains(self.imageRect):
             screen.blit(self.image, self.imageRect)
             self.imageRect = self.imageRect.move(0,self.speed)
             screen.blit(self.image, self.imageRect)
-
-
-
-
     def increaseSpeed(self):
         self.speed = self.speed + .25
         if self.speed > 9:
             self.speed = 8
     def update(self, surface):
-
         surface.blit(self.image, self.imageRect)
-
-
-
 class UI(object):
     def __init__(self, pos):
         screen = pg.display.get_surface()
-        self.counterFont = pg.font.Font('retro1.ttf', 80)
+        self.counterFont = pg.font.Font('Alien-Encounters-Bold.ttf', 30)
         self.TopCover = pg.image.load("TopCover.png").convert()#top cover for Asteroid
         self.TopCoverRect = self.TopCover.get_rect()#topcover rectangle
         self.SideCover = pg.image.load("SideCover.png").convert()
@@ -154,7 +139,6 @@ class UI(object):
         self.smallTopCover = pg.image.load("smallTopCover.png").convert()#cover for behind text
         self.smallTopCoverRect = self.smallTopCover.get_rect()
         self.smallTopCoverRect = self.smallTopCoverRect.move(200,0)
-
         screen.blit(self.TopCover,self.TopCoverRect)
         screen.blit(self.SideCover,self.SideCoverRect)
         screen.blit(self.smallTopCover,self.smallTopCoverRect)
@@ -168,10 +152,10 @@ class UI(object):
         return self.numForCounter
         print(self.numForCounter)
     def counterFT(self):
-        counterSurface = self.counterFont.render(("Altitude: " + self.numForCounter + " Km."), False, WHITE)#render font
-        self.TopCover.blit(self.smallTopCover,(50,-20))#add background for text so it doesnt overlap
+        counterSurface = self.counterFont.render(("Altitude: " + self.numForCounter + " Km."), False, RED)#render font
+        self.TopCover.blit(self.smallTopCover,(40,-20))#add background for text so it doesnt overlap
         self.smallTopCover.fill(BLACK)#fill background for text black to "clear it"
-        self.smallTopCover.blit(counterSurface,(10,40))#update
+        self.smallTopCover.blit(counterSurface,(0,40))#update
 
     def update(self, surface):
         surface.blit(self.TopCover, self.TopCoverRect)
@@ -203,16 +187,17 @@ class gameMenu(object):
         surface.blit(self.menuButton, self.menuButtonRect)
 class Background():
     def __init__(self):
-        self.backgroundImage = pg.image.load("background.png")
+        self.backgroundImage = pg.image.load("background.png").convert()
         self.backgroundImageRect = self.backgroundImage.get_rect()
         self.backgroundX = 0
         self.backgroundY = -6000
         self.speed = .5
+        screen.blit(self.backgroundImage, self.backgroundImageRect)
+        pg.display.update()
     def move(self):
         self.backgroundY += self.speed
     def update(self, surface):
         surface.blit(self.backgroundImage, (self.backgroundX, self.backgroundY))
-
 
 def update():#update group
     background.update(screen)
@@ -221,12 +206,14 @@ def update():#update group
     ship.update(screen)
     ui.update(screen)
     gameMenu.update(screen)
+
     #add above
     pg.display.update()
 def moveGroup():
-    background.move()
+
     asteroid1.motion(screen)
     asteroid2.motion(screen)
+
 def collisionCheck():
     ship.collisionCheck(asteroid1)
     ship.collisionCheck(asteroid2)
@@ -240,12 +227,12 @@ def main():
     asteroid2.SetSpeed()
 
     while gameRunning: #main loop
-        clock.tick(200)
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 exit()
                 gameRunning == False
         collisionCheck()
+        background.move()
         moveGroup()
         update()
         ship.getShipX()
@@ -254,7 +241,7 @@ def main():
         ui.HeightScore()
         ui.counterFT()
         gameMenu.button(screen)
-
+        print(clock.tick())
         """keeps ship on screen"""
         if asteroid1.area.contains(asteroid1.imageRect):
             ReadyForRepeat = False
@@ -279,7 +266,6 @@ def main():
             asteroid2.increaseSpeed()
             asteroid2.__init__(object)
             asteroid2.motion(screen)
-
             ReadyForRepeatA2 = False
 
 

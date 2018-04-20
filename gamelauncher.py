@@ -134,6 +134,8 @@ def updateScoreboard(score):
         scoreboard_local.close()
         scoreboard_hardcode.close()
         cls()
+
+        
         print(GREEN + "╔════════════════╗")
         print("║ New Highscore! ║")
         print("╠════════════════╩════════════════════╗")
