@@ -1,6 +1,5 @@
 
 import math
-import pickle
 from sys import exit
 import random
 from time import sleep
@@ -14,23 +13,19 @@ steps = 1
 feet = 0
 signinMenu()
 pg.init()
-
 pg.display.set_caption("SPACE JAM: Beta")
 screen = pg.display.set_mode((450,700))
 pg.display.update()
 clock = pg.time.Clock()
-clock.tick(60)
-
+clock.tick(6)
 class Ship(object):
     def __init__(self, pos):
         self.destroyed = False
         self.health = 3
-        self.image = pg.image.load("ship.png")
+        self.image = pg.image.load("spaceship.png")
         self.imageRect = self.image.get_rect()
-        self.image = pg.transform.scale(self.image, (28, 25))
         screen.blit(self.image,self.imageRect)
         pg.display.update()
-
         self.x = 200
         self.y = 565
     def getShipX(self):
@@ -39,10 +34,13 @@ class Ship(object):
         dist = 3
         key = pg.key.get_pressed()
         if key[pg.K_d] or key[pg.K_RIGHT]: # d key
+            self.image = pg.image.load("spaceshipRight.png")
             self.x += dist # move right
         elif key[pg.K_a] or key[pg.K_LEFT]: # a key
+            self.image = pg.image.load("spaceshipLeft.png")
             self.x -= dist # move left
-
+        else:
+            self.image = pg.image.load("spaceship.png")
         if key[pg.K_ESCAPE]:
             exit()
         #right side of screen
@@ -53,6 +51,7 @@ class Ship(object):
             self.x = 0
     def update(self, surface):
         surface.blit(self.image, (self.x, self.y))
+
     def keepinbounds(self):
         if self.x < 3:
             self.x == 3
@@ -73,9 +72,9 @@ class Asteroid(object):
         self.area = screen.get_rect()
         self.x = ship.x
         self.y = 100
-        self.image = pg.image.load("Asteroid.png").convert()
-        self.image = pg.transform.scale(self.image, (66, 71))
+        self.image = pg.image.load("asteroid.png")
         self.imageRect = self.image.get_rect()
+        self.imageRect = self.imageRect.inflate(1, -5)
         self.imageRect = self.imageRect.move(ship.x,100)
         screen.blit(self.image,self.imageRect)
         pg.display.update()
@@ -86,11 +85,8 @@ class Asteroid(object):
     def SetSpeed(self):
         self.speed = 1
     def motion(self, screen):
-
         if self.area.contains(self.imageRect):
-            screen.blit(self.image, self.imageRect)
             self.imageRect = self.imageRect.move(0,self.speed)
-            screen.blit(self.image, self.imageRect)
     def increaseSpeed(self):
         self.speed = self.speed + .25
         if self.speed > 9:
@@ -105,8 +101,8 @@ class AsteroidNT(object):
         self.x = random.randrange(1,316)
         self.y = 0
         self.image = pg.image.load("asteroid.png")
-        self.image = pg.transform.scale(self.image, (66, 71))
         self.imageRect = self.image.get_rect()
+        self.imageRect = self.imageRect.inflate(1, -5)
         self.imageRect = self.imageRect.move(self.x,0)
         screen.blit(self.image,self.imageRect)
         pg.display.update()
@@ -118,9 +114,7 @@ class AsteroidNT(object):
         self.speed = 1
     def motion(self, screen):
         if self.area.contains(self.imageRect):
-            screen.blit(self.image, self.imageRect)
             self.imageRect = self.imageRect.move(0,self.speed)
-            screen.blit(self.image, self.imageRect)
     def increaseSpeed(self):
         self.speed = self.speed + .25
         if self.speed > 9:
@@ -163,7 +157,6 @@ class UI(object):
 
 class gameMenu(object):
     def __init__(self, pos):
-
         screen = pg.display.get_surface()
         self.buttonX = False #menuButton002.png
         self.buttonLine = True #menuButton001.png
@@ -231,6 +224,7 @@ def main():
             if event.type == pg.QUIT:
                 exit()
                 gameRunning == False
+
         collisionCheck()
         background.move()
         moveGroup()

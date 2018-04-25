@@ -19,7 +19,7 @@ class Ship(object):
     def __init__(self, pos):
         self.destroyed = False
         self.health = 1
-        self.image = pg.image.load("ship.gif")
+        self.image = pg.image.load("spaceshipResize.png")
         self.imageRect = self.image.get_rect()
         screen.blit(self.image,self.imageRect)
         pg.display.update()

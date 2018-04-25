@@ -109,7 +109,9 @@ def updateScoreboard(score):
     localLines = currentScoreL.readlines()
     nameLocal = localLines[1]
     scoreLocal = float(localLines[3])
-
+    ScorePadding = ""
+    if len(score) == 4:
+        ScorePadding = " "
     currentScoreH = open("C:/Users/Public/Documents/SH.txt","r+")
     hardcodeLines = currentScoreH.readlines()
     nameHardcode = hardcodeLines[1]
@@ -135,12 +137,17 @@ def updateScoreboard(score):
         scoreboard_hardcode.close()
         cls()
 
-        
+        print(RED + "   _____          __  __ ______    ______      ________ _____  ")
+        print("  / ____|   /\   |  \/  |  ____|  / __ \ \    / /  ____|  __ \ ")
+        print(" | |  __   /  \  | \  / | |__    | |  | \ \  / /| |__  | |__) |")
+        print(" | | |_ | / /\ \ | |\/| |  __|   | |  | |\ \/ / |  __| |  _  / ")
+        print(" | |__| |/ ____ \| |  | | |____  | |__| | \  /  | |____| | \ \ ")
+        print("  \_____/_/    \_\_|  |_|______|  \____/   \/   |______|_|  \_\ ")
         print(GREEN + "╔════════════════╗")
         print("║ New Highscore! ║")
         print("╠════════════════╩════════════════════╗")
-        print("║ Current Highscore: " + ENDC + YELLOW + str(scoreboardIdentifier),str(score),"Feet" + ENDC + GREEN + "   ║")
-        print("╚═════════════════════════════════════╝")
+        print("║ Current Highscore: " + ENDC + YELLOW + str(scoreboardIdentifier),str(score),"Km. " + ScorePadding + ENDC + GREEN + "   ║")
+        print("╚═════════════════════════════════════╝" + ENDC)
     else:
         scoreboard_local = open("scoreboardLocals.txt","r")
         lines = scoreboard_local.readlines()
@@ -149,10 +156,16 @@ def updateScoreboard(score):
 
         scoreboard_local.close()
         cls()
+        print(RED + "   _____          __  __ ______    ______      ________ _____  ")
+        print("  / ____|   /\   |  \/  |  ____|  / __ \ \    / /  ____|  __ \ ")
+        print(" | |  __   /  \  | \  / | |__    | |  | \ \  / /| |__  | |__) |")
+        print(" | | |_ | / /\ \ | |\/| |  __|   | |  | |\ \/ / |  __| |  _  / ")
+        print(" | |__| |/ ____ \| |  | | |____  | |__| | \  /  | |____| | \ \ ")
+        print("  \_____/_/    \_\_|  |_|______|  \____/   \/   |______|_|  \_\ ")
         print(GREEN + "╔═════════════════════════════════════╗")
-        print("║ Current Highscore: " + ENDC + YELLOW + str(HighscoreName.strip()),str(HighscoreScore.strip()),"Feet" + ENDC + GREEN + "   ║") #strip gets rid of newline
+        print("║ Current Highscore: " + ENDC + YELLOW + str(HighscoreName.strip()),str(HighscoreScore.strip()),"Km. " + ENDC + GREEN + "   ║") #strip gets rid of newline
         print("║                                     ║")
-        print("║ Your score: " + ENDC + PURPLE + scoreboardIdentifier,str(score),"Feet" + ENDC + GREEN + "          ║")
+        print("║ Your score: " + ENDC + PURPLE + scoreboardIdentifier,str(score),"Km. " + ScorePadding + ENDC + GREEN + "          ║")
         print("╚═════════════════════════════════════╝" + ENDC)
 
     currentScoreL.close()
