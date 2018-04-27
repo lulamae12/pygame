@@ -1,31 +1,21 @@
-import subprocess, math, random, os
+
+import math
 from sys import exit
+import random
 from time import sleep
 from gamelauncher import *
 from colors import *
-try:#checks if pygame is installed if not, install and import it
-    import pygame as pg
-except ImportError:
-    print("ERROR: Pygame is not installed. Installing now.")
-    subprocess.call("py -3 -m pip install pygame")#install pygame thru cmd
-    import pygame as pg
-
-x = 100#window coord x
-y = 100#window coord y
-os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)#sets window postion
-
-ReadyForRepeat = False #var to check if asteroid1 is ready for repeat
-ReadyForRepeatA2 = False#var to check if asteroid1 is ready for repeat
+import pygame as pg
+ReadyForRepeat = False
+ReadyForRepeatA2 = False
 #setup
-feet = 0 #feet( in actualality km) for height score
-signinMenu()#run console based setup program
-
-pg.init()# intialise pygame
-pg.mixer.music.load("mainThemeMusic.wav")#load music
+steps = 1
+feet = 0
+signinMenu()
+pg.init()
 pg.display.set_caption("SPACE JAM: Beta")
 screen = pg.display.set_mode((450,700))
 pg.display.update()
-pg.mixer.music.play(0, 0)
 clock = pg.time.Clock()
 clock.tick(6)
 class Ship(object):
@@ -34,6 +24,8 @@ class Ship(object):
         self.health = 3
         self.image = pg.image.load("spaceship.png")
         self.imageRect = self.image.get_rect()
+        self.laser = pg.image.load("laser.png")
+        self.laserRect = self.image.get_rect()
         screen.blit(self.image,self.imageRect)
         pg.display.update()
         self.x = 200
@@ -52,6 +44,8 @@ class Ship(object):
         else:
             self.image = pg.image.load("spaceship.png")
         if key[pg.K_ESCAPE]:
+            exit()
+        if key[pg.K_SPACE]:
             exit()
         #right side of screen
         if self.x > 316:
@@ -76,6 +70,8 @@ class Ship(object):
             print("FH",finalHeightfixed)
             getScore(finalHeightfixed)
             exit()
+    def laser(self):
+
 class Asteroid(object):
     def __init__(self, pos):
         screen = pg.display.get_surface()
@@ -201,28 +197,7 @@ class Background():
         self.backgroundY += self.speed
     def update(self, surface):
         surface.blit(self.backgroundImage, (self.backgroundX, self.backgroundY))
-class Explosion(pg.sprite.Sprite):
-    def __init__(self, center, size):
-        pg.sprite.Sprite.__init__(self)
-        self.size = size
-        self.image = explosion_anim[self.size][0]
-        self.rect = self.image.get_rect()
-        self.rect.center = center
-        self.frame = 0
-        self.lastUpdate = pg.time.get_ticks()
-        self.frameRate = 50
-    def update(self):
-        currentTime = pg.time.get_ticks
-        if currentTime - self.lastUpdate > self.frameRate:
-            self.lastUpdate = currentTime
-            self.frame += 1
-            if self.frame == len(explosion_anim[self.size]):
-                self.kill()
-            else:
-                center = self.rect.center
-                self.image = explosion_anim[self.size][self.frame]
-                self.rect  = self.image.get_rect()
-                self.rect.center = center
+
 def update():#update group
     background.update(screen)
     asteroid1.update(screen)

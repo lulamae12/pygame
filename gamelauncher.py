@@ -1,3 +1,4 @@
+
 from sys import exit
 import os
 cls = lambda: os.system('cls')
@@ -128,7 +129,6 @@ def updateScoreboard(score):
         scoreHardcode = score
         nameLocal = scoreboardIdentifier
         nameHardcode = scoreboardIdentifier
-
         localContentTEXT = ["NAME","\n",nameLocal,"\n","SCORE","\n",scoreLocal]
         SHLinesOfText = ["NAME","\n",nameHardcode,"\n","SCORE","\n",scoreHardcode]
         scoreboard_local.writelines(localContentTEXT)
