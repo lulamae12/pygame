@@ -1,3 +1,5 @@
+#game: J.A.A.G.
+#Just Another Asteroid Game
 import subprocess, math, random, os
 from sys import exit
 from time import sleep
@@ -22,32 +24,31 @@ signinMenu()#run console based setup program
 
 pg.init()# intialise pygame
 pg.mixer.music.load("mainThemeMusic.wav")#load music
-pg.display.set_caption("SPACE JAM: Beta")
-screen = pg.display.set_mode((450,700))
-pg.display.update()
-pg.mixer.music.play(0, 0)
-clock = pg.time.Clock()
-clock.tick(6)
-class Ship(object):
+pg.display.set_caption("J.A.A.G.")#load caption 
+screen = pg.display.set_mode((450,700))#set size
+pg.display.update()#update
+pg.mixer.music.play(0, 0)#start music
+clock = pg.time.Clock()#setup clock
+clock.tick(6)#set tick speed
+class Ship(object):#make ship
     def __init__(self, pos):
-        self.destroyed = False
-        self.health = 3
-        self.image = pg.image.load("spaceship.png")
-        self.imageRect = self.image.get_rect()
-        screen.blit(self.image,self.imageRect)
+        self.destroyed = False#set up is destroyed
+        self.image = pg.image.load("spaceship.png")#load image
+        self.imageRect = self.image.get_rect()#get image hitbox
+        screen.blit(self.image,self.imageRect)#show to screen
         pg.display.update()
         self.x = 200
         self.y = 565
-    def getShipX(self):
+    def getShipX(self):#get x of ship
         self.shipX = self.x
-    def controls(self):
+    def controls(self):#get key presses
         dist = 3
         key = pg.key.get_pressed()
         if key[pg.K_d] or key[pg.K_RIGHT]: # d key
-            self.image = pg.image.load("spaceshipRight.png")
+            self.image = pg.image.load("spaceshipRight.png")#change image
             self.x += dist # move right
         elif key[pg.K_a] or key[pg.K_LEFT]: # a key
-            self.image = pg.image.load("spaceshipLeft.png")
+            self.image = pg.image.load("spaceshipLeft.png")#change image
             self.x -= dist # move left
         else:
             self.image = pg.image.load("spaceship.png")

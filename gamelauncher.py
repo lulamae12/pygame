@@ -59,7 +59,6 @@ def signinMenu():
         print("╚══════════════════════════════════════════╝")
         ReadyToPlay = input("Ready to play?(y, n):" + ENDC)
         if ReadyToPlay == "y" or ReadyToPlay == "yes" or ReadyToPlay == "Y":
-            print(ReadyToPlay)
             print("Starting game!")
             break
         elif ReadyToPlay == "n" or ReadyToPlay == "no" or ReadyToPlay == "N":
@@ -91,7 +90,7 @@ def verifyFileSym():
                 localContentTEXT = ["NAME","\n","TLS","\n","SCORE","\n","000.00"]
                 localContent.writelines(localContentTEXT)
                 localContent.close()
-    except:#if file dosent exist make new default one
+    except:#if file dosent exist make new default one and backup
         print("file not found")
         scoreboard_hardcode = open("C:/Users/Public/Documents/SH.txt","w")
         SHLinesOfText = ["NAME","\n","TLS","\n","SCORE","\n","000.00"]
@@ -101,10 +100,6 @@ def verifyFileSym():
         localContentTEXT = ["NAME","\n","TLS","\n","SCORE","\n","000.00"]
         localContent.writelines(localContentTEXT)
         localContent.close()
-
-
-    print(hardcodedContent)
-    print(localContent)
 def updateScoreboard(score):
     currentScoreL = open("scoreboardLocals.txt","r+")
     localLines = currentScoreL.readlines()
