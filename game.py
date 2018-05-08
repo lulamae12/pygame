@@ -20,11 +20,11 @@ ReadyForRepeat = False #var to check if asteroid1 is ready for repeat
 ReadyForRepeatA2 = False#var to check if asteroid1 is ready for repeat
 #setup
 feet = 0 #feet( in actualality km) for height score
-signinMenu()#run console based setup program
+launchScreen()#run console based setup program
 
 pg.init()# intialise pygame
 pg.mixer.music.load("mainThemeMusic.wav")#load music
-pg.display.set_caption("J.A.A.G.")#load caption 
+pg.display.set_caption("J.A.A.G.")#load caption
 screen = pg.display.set_mode((450,700))#set size
 pg.display.update()#update
 pg.mixer.music.play(0, 0)#start music
@@ -61,22 +61,22 @@ class Ship(object):#make ship
         if self.x < 0:
             self.x = 0
     def update(self, surface):
-        surface.blit(self.image, (self.x, self.y))
+        surface.blit(self.image, (self.x, self.y))#update image and place
 
     def keepinbounds(self):
         if self.x < 3:
             self.x == 3
     def collisionCheck(self, asteroid):
-        col = asteroid.imageRect.collidepoint(self.x, self.y)
+        col = asteroid.imageRect.collidepoint(self.x, self.y)#if ast hits ship
         if col == True:
             print("hit")
             finalHeight = ui.HeightScore()
-            finalHeightfixed = float(finalHeight) -.3
-            finalHeightfixed = str(finalHeightfixed)
+            finalHeightfixed = float(finalHeight) -.3#set to float
+            finalHeightfixed = str(finalHeightfixed)#set to string
             finalHeightfixed = finalHeightfixed[0:5]
             print("FH",finalHeightfixed)
             getScore(finalHeightfixed)
-            exit()
+            exit()#quit
 class Asteroid(object):
     def __init__(self, pos):
         screen = pg.display.get_surface()

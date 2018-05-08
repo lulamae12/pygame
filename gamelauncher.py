@@ -13,6 +13,27 @@ ENDC = '\033[0m'
 BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 #make functiion return
+def launchScreen():
+    print(ENDC + "")
+    cls()
+
+    print(GREEN + "")
+    print("╔═══════════════════════════════════════════════════════════════════════╗ ")
+    print("║     ___           ________           ________           ________      ║ ")
+    print("║    |\  \         |\   __  \         |\   __  \         |\   ____\     ║ ")
+    print("║    \ \  \        \ \  \|\  \        \ \  \|\  \        \ \  \___|     ║ ")
+    print("║  __ \ \  \        \ \   __  \        \ \   __  \        \ \  \  ___   ║ ")
+    print("║ |\  \\\_\  \  ___   \ \  \ \  \  ___   \ \  \ \  \  ___   \ \  \|\  \  ║")
+    print("║ \ \________\|\__\   \ \__\ \__\|\__\   \ \__\ \__\|\__\   \ \_______\ ║ ")
+    print("║  \|________|\|__|    \|__|\|__|\|__|    \|__|\|__|\|__|    \|_______| ║ ")
+    print("║                                                                       ║ ")
+    print("║                      Just Another Asteroid Game.                      ║ ")
+    print("║                        A game by Tommy Smith.                         ║ ")
+    print("║                                                                       ║ ")
+    print("╚═════════════════════════[Press Enter to play]═════════════════════════╝ ")
+    launchscreen = input()
+    cls()
+    signinMenu()
 def signinMenu():
     print(ENDC + "")
     cls()
@@ -62,14 +83,14 @@ def signinMenu():
             print("Starting game!")
             break
         elif ReadyToPlay == "n" or ReadyToPlay == "no" or ReadyToPlay == "N":
-            print("quitting!")
+            print("Exiting...")
             exit()
         else:
             cls()
             print(RED + "ERROR: That is not a valid answer!"+ ENDC)
 def debugConsole():
     print("you have entered the debug console:")
-
+    test = input()
 def getScore(score):
     score = score
     updateScoreboard(score)
