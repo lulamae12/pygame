@@ -83,8 +83,16 @@ def signinMenu():
             print("Starting game!")
             break
         elif ReadyToPlay == "n" or ReadyToPlay == "no" or ReadyToPlay == "N":
-            print("Exiting...")
-            exit()
+            ReadyToPlayBJ = input(GREEN + "Ok then, do you want to play a diffrent game?(y, n):" + ENDC)
+            if ReadyToPlayBJ == "y" or ReadyToPlayBJ == "yes" or ReadyToPlayBJ == "Y":
+                print("Starting game!")
+                os.system("python blackJackGraphics.py")
+                cls()
+                print(ENDC + "")
+                exit()
+            else:
+                print("Exiting...")
+                exit()
         else:
             cls()
             print(RED + "ERROR: That is not a valid answer!"+ ENDC)
@@ -103,13 +111,13 @@ def verifyFileSym():
         scoreboard_hardcode = open("C:/Users/Public/Documents/SH.txt","r")#open "backup file"
         hardcodedContent = scoreboard_hardcode.readlines()#readlines
         if localContent != hardcodedContent:
-                scoreboard_hardcode = open("C:/Users/Public/Documents/SH.txt","w")
-                SHLinesOfText = ["NAME","\n","TLS","\n","SCORE","\n","000.00"]
-                scoreboard_hardcode.writelines(SHLinesOfText)
+                #scoreboard_hardcode = open("C:/Users/Public/Documents/SH.txt","w")
+                #SHLinesOfText = ["NAME","\n","TLS","\n","SCORE","\n","000.00"]
+                #scoreboard_hardcode.writelines(SHLinesOfText)
                 scoreboard_hardcode.close()
                 localContent = open("scoreboardLocals.txt","w")
                 localContentTEXT = ["NAME","\n","TLS","\n","SCORE","\n","000.00"]
-                localContent.writelines(localContentTEXT)
+                localContent.writelines(hardcodedContent)
                 localContent.close()
     except:#if file dosent exist make new default one and backup
         print("file not found")
